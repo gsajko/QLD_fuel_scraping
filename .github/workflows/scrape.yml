@@ -41,7 +41,7 @@ jobs:
       #----------------------------------------------
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root
+        run: poetry install --no-interaction --no-root --no-dev
       #----------------------------------------------
       # run scrape
       #----------------------------------------------       
@@ -50,6 +50,7 @@ jobs:
           TOKEN: ${{ secrets.TOKEN }}
         run: |
           source .venv/bin/activate
+          poetry run python -c 'import os;print(os.environ)'
           poetry run python main.py
 
       #----------------------------------------------
