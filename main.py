@@ -35,6 +35,8 @@ df_scraped = pd.DataFrame(response.json()["SitePrices"])
 # %%
 df = df.append(df_scraped, sort=False)
 # %%
+df.drop_duplicates(inplace=True)
+# %%
 df.to_csv(f"data/{current_month}.csv", index=False)
 
 # %%
