@@ -1,0 +1,55 @@
+[tool.poetry]
+name = "qld_fuel_scraping"
+version = "0.1.0"
+description = ""
+authors = ["gsajko <grzegorz.sajko@protonmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.0.2"
+pytest-cov = "^2.10.1"
+pylint = "^2.6.0"
+mypy = "^0.782"
+codecov = "^2.1.9"
+black = "^20.8b1"
+jupyter = "^1.0.0"
+jupyter_contrib_nbextensions = "^0.5.1"
+ipykernel = "^5.3.4"
+jupyter_nbextensions_configurator = "^0.4.1"
+tabulate = "^0.8.7"
+flake8 = "^3.8.4"
+isort = "^5.7.0"
+seaborn = "^0.11.1"
+
+[tool.black]
+line-length = 79
+include = '\.pyi?$'
+exclude = '''
+/(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+'''
+
+# iSort
+[tool.isort]
+profile = "black"
+line_length = 79
+multi_line_output = 3
+include_trailing_comma = true
+skip_gitignore = true
+virtual_env = "venv"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
