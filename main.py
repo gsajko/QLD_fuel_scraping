@@ -35,6 +35,11 @@ headers = {
 }
 
 response = requests.request("GET", url, headers=headers, data=payload)
+if response.status_code == 200:
+    print(response)
+else:
+    print(response)
+    print(response.reason)
 # %%
 df_scraped = pd.DataFrame(response.json()["SitePrices"])
 # check what month it is
