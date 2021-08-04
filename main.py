@@ -6,15 +6,23 @@ from datetime import datetime
 import pandas as pd
 
 # %%
-auth_path: str = "config/auth.json"
-auth = json.load(open(auth_path))
+# auth_path: str = "config/auth.json"
+# auth = json.load(open(auth_path))
+# TOKEN = auth["token"]
+TOKEN = os.environ["TOKEN"]
 fileList = os.listdir("data/")
 current_month = datetime.now().strftime("%y_%m")
 # %%
 if f"{current_month}.csv" in fileList:
     df = pd.read_csv(f"data/{current_month}.csv")
 else:
-    columns = ['SiteId', 'FuelId', 'CollectionMethod', 'TransactionDateUtc', 'Price']
+    columns = [
+        "SiteId",
+        "FuelId",
+        "CollectionMethod",
+        "TransactionDateUtc",
+        "Price",
+    ]
     df = pd.DataFrame(columns=columns)
 
 # %%
@@ -22,7 +30,7 @@ url = "https://fppdirectapi-prod.fuelpricesqld.com.au/Price/GetSitesPrices?count
 
 payload = {}
 headers = {
-    "Authorization": f'FPDAPI SubscriberToken={auth["token"]}',
+    "Authorization": f"FPDAPI SubscriberToken={TOKEN}",
     "Content-Type": "application/json",
 }
 
