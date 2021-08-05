@@ -51,7 +51,8 @@ jobs:
         run: |
           source .venv/bin/activate
           poetry run python -c 'import os;print(os.environ)'
-          poetry run python main.py
+          poetry run python daily_scrape.py
+          poetry run python monthly_scrape.py
 
       #----------------------------------------------
       # publish to github
