@@ -1,20 +1,22 @@
 # %%
 import requests
-import json
+
 import os
 from datetime import datetime
 import pandas as pd
 
 # %%
+# import json
 # auth_path: str = "config/auth.json"
 # auth = json.load(open(auth_path))
 # TOKEN = auth["token"]
 TOKEN = os.environ["TOKEN"]
 fileList = os.listdir("data/")
-current_month = datetime.now().strftime("%y_%m")
+week_of_year = datetime.now().strftime("%y_%V")
+
 # %%
-if f"{current_month}.csv" in fileList:
-    df = pd.read_csv(f"data/{current_month}.csv")
+if f"{week_of_year}.csv" in fileList:
+    df = pd.read_csv(f"data/{week_of_year}.csv")
 else:
     columns = [
         "SiteId",
@@ -50,6 +52,6 @@ df = df.append(df_scraped, sort=False)
 # %%
 df.drop_duplicates(inplace=True)
 # %%
-df.to_csv(f"data/{current_month}.csv", index=False)
+df.to_csv(f"data/{week_of_year}.csv", index=False)
 
 # %%
