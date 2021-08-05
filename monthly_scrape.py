@@ -5,6 +5,7 @@ import os
 import pandas as pd
 import urllib.request
 from bs4 import BeautifulSoup
+
 # %%
 # url
 url = "https://www.data.qld.gov.au/dataset/fuel-price-reporting"
@@ -24,6 +25,7 @@ df = df[["@id", "contentSize", "description", "encodingFormat", "name", "url"]]
 df["@id"] = df["@id"].str.replace(
     "https://www.data.qld.gov.au/dataset/cb7a63ac-d6e1-4e78-9f9b-a23969ca052c/resource/",
     "",
+    regex=True,
 )
 
 # %% scrape if needed
