@@ -27,6 +27,7 @@ df["@id"] = df["@id"].str.replace(
     "",
     regex=True,
 )
+df.to_csv("data/monthly_list.csv", index=False)
 
 # %% scrape if needed
 fileList = os.listdir("data/month")
