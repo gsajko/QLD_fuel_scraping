@@ -5,6 +5,7 @@ import os
 import pandas as pd
 import urllib.request
 from bs4 import BeautifulSoup
+import datetime
 
 # %%
 # url
@@ -27,6 +28,11 @@ df["@id"] = df["@id"].str.replace(
     "",
     regex=True,
 )
+df["date"] = df["name"].str.replace("Queensland Fuel Prices ", "")
+df["date"] = pd.to_datetime(df.date.str.strip(), format="%B %Y").dt.to_period(
+    "M"
+)
+df.sort_values(by="date", inplace=True)
 df.to_csv("data/monthly_list.csv", index=False)
 
 # %% scrape if needed

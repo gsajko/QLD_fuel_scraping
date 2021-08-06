@@ -2,7 +2,7 @@
 
 Data is collected once a day.
 
- `'5 13 * * *'` Each day At 13:05
+ `'5 11 * * *'` Each day At 11:05
 
 Scraped record are saved to a `.csv` file. Each week has a separate file in a format `[#year]_[#week].csv`.
 
