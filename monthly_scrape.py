@@ -5,7 +5,7 @@ import os
 import pandas as pd
 import urllib.request
 from bs4 import BeautifulSoup
-import datetime
+import time
 
 # %%
 # url
@@ -37,16 +37,21 @@ df.to_csv("data/monthly_list.csv", index=False)
 
 # %% scrape if needed
 fileList = os.listdir("data/month")
-
-for csv_url in df["url"]:
-    name = csv_url.split("/")[-1]
+for index, row in df.iterrows():
+    name = str(row.date) + "-" + row.url.split("/")[-1]
     if name in fileList:
         pass
     else:
+        req = requests.get(row.url)
         print(f"downloading {name}")
-        req = requests.get(csv_url)
-        url_content = req.content
-        csv_file = open(f"data/month/{name}", "wb")
-        csv_file.write(url_content)
-        csv_file.close()
+        if req.status_code == 200:
+            url_content = req.content
+            csv_file = open(f"data/month/{name}", "wb")
+            csv_file.write(url_content)
+            csv_file.close()
+        else:
+            print(req.status_code)
+            pass
+# %%
+
 # %%
