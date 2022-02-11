@@ -1,11 +1,11 @@
 # %%
-import requests
 import json
 import os
-import pandas as pd
 import urllib.request
+
+import pandas as pd
+import requests
 from bs4 import BeautifulSoup
-import time
 
 # %%
 # url
