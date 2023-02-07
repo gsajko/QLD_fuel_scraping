@@ -2,7 +2,7 @@ name: scrape
 
 on:
   schedule:
-    - cron:  '11 * * * *' # Each day At 11:05 Ref https://crontab.guru/examples.html
+    - cron:  '11 * * * *' # Each hour At 11 min Ref https://crontab.guru/examples.html
   workflow_dispatch:
 
 jobs:

@@ -6,10 +6,11 @@ clean:
 	@find . -type d -name '*pytest_cache*' -exec rm -rf {} +
 	@find . -type f -name "*.py[co]" -exec rm -rf {} +
 
-style:
+lint: ## Run the code linter.
+	ruff ./
+
+style: lint
 	black .
-	flake8
-	isort .
 	@echo "The style pass! ✨ 🍰 ✨"	
 
 check: test lint style
