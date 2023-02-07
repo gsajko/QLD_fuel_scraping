@@ -12,7 +12,8 @@ import requests
 # TOKEN = auth["token"]
 TOKEN = os.environ["TOKEN"]
 fileList = os.listdir("data/week/")
-week_of_year = datetime.now().strftime("%y_%V")
+week_of_year_iso = datetime.now().isocalendar()
+week_of_year = f'{week_of_year_iso.year-2000}_{week_of_year_iso.week}'
 
 # %%
 if f"{week_of_year}.csv" in fileList:
@@ -28,7 +29,8 @@ else:
     df = pd.DataFrame(columns=columns)
 
 # %%
-url = "https://fppdirectapi-prod.fuelpricesqld.com.au/Price/GetSitesPrices?countryId=21&geoRegionLevel=3&geoRegionId=1"
+url = ("https://fppdirectapi-prod.fuelpricesqld.com.au/"
+       "Price/GetSitesPrices?countryId=21&geoRegionLevel=3&geoRegionId=1")
 
 payload = {}
 headers = {
