@@ -2,6 +2,7 @@
 import json
 import os
 import urllib.request
+from datetime import datetime
 
 import pandas as pd
 import requests
@@ -18,6 +19,7 @@ list_id = [i for i in data["@graph"]]
 df = pd.DataFrame(list_id)
 df = df[df["schema:encodingFormat"] == "CSV"]
 
+
 # %% clean up df
 columns_list = df.columns
 columns_list = [col.replace("schema:", "") for col in columns_list]
@@ -29,9 +31,7 @@ df["@id"] = df["@id"].str.replace(
     regex=True,
 )
 df["date"] = df["name"].str.replace("Queensland Fuel Prices ", "")
-df["date"] = pd.to_datetime(df.date.str.strip(), format="%B %Y").dt.to_period(
-    "M"
-)
+df["date"] = pd.to_datetime(df.date.str.strip(), format="%B %Y").dt.to_period("M")
 df.sort_values(by="date", inplace=True)
 df.to_csv("data/monthly_list.csv", index=False)
 
@@ -53,5 +53,14 @@ for index, row in df.iterrows():
             print(req.status_code)
             pass
 # %%
-
+# remove old weekly files if there is a new monthly file
+last_scrape = str(df.iloc[-1, -1])
+week_of_year_iso = datetime.strptime(last_scrape, "%Y-%m").isocalendar()
+week_of_year = f"{week_of_year_iso[0]-2000}_{week_of_year_iso[1]}"
 # %%
+fileList = os.listdir("data/week/")
+for file in fileList:
+    nr = int(file.split(".")[0].replace("_", ""))
+    week_nr = int(week_of_year.replace("_", ""))
+    if nr < week_nr:
+        os.remove(f"data/week/{file}")

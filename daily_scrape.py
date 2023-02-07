@@ -13,8 +13,11 @@ import requests
 TOKEN = os.environ["TOKEN"]
 fileList = os.listdir("data/week/")
 # %%
-week_of_year_iso =(datetime.now().isocalendar())
-week_of_year = f'{week_of_year_iso[0]-2000}_{week_of_year_iso[1]}'
+week_of_year_iso = datetime.now().isocalendar()
+week_of_year = f"{week_of_year_iso[0]-2000}_{week_of_year_iso[1]}"
+# make single digit weeks double digit by adding a 0
+if len(week_of_year.split("_")[1]) == 1:
+    week_of_year = f"{week_of_year_iso[0]-2000}_0{week_of_year_iso[1]}"
 
 # %%
 if f"{week_of_year}.csv" in fileList:
@@ -30,8 +33,10 @@ else:
     df = pd.DataFrame(columns=columns)
 
 # %%
-url = ("https://fppdirectapi-prod.fuelpricesqld.com.au/"
-       "Price/GetSitesPrices?countryId=21&geoRegionLevel=3&geoRegionId=1")
+url = (
+    "https://fppdirectapi-prod.fuelpricesqld.com.au/"
+    "Price/GetSitesPrices?countryId=21&geoRegionLevel=3&geoRegionId=1"
+)
 
 payload = {}
 headers = {
@@ -47,14 +52,10 @@ else:
     print(response.reason)
 # %%
 df_scraped = pd.DataFrame(response.json()["SitePrices"])
-# check what month it is
-# %%
 
-# %%
 df = df.append(df_scraped, sort=False)
-# %%
 df.drop_duplicates(inplace=True)
-# %%
+
 df.to_csv(f"data/week/{week_of_year}.csv", index=False)
 
 # %%

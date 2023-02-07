@@ -46,3 +46,14 @@ exclude = '''
     | dist
   )/
 '''
+
+[tool.ruff]
+select = [
+    # Pyflakes
+    "F",
+    # Pycodestyle
+    "E",
+    "W",
+    # isort
+    "I001"
+]
