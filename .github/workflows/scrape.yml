@@ -53,6 +53,7 @@ jobs:
           poetry run python -c 'import os;print(os.environ)'
           poetry run python daily_scrape.py
           poetry run python monthly_scrape.py
+          poetry run python fuel_types.py
 
       #----------------------------------------------
       # publish to github
