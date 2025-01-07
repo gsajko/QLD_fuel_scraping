@@ -22,12 +22,10 @@ jobs:
       #----------------------------------------------
       #  -----  install & configure poetry  -----      
       #----------------------------------------------
-      - name: Install Poetry Action
-        uses: snok/install-poetry@v1.3.3
-
-        with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
+      # Install Poetry 1.8.5
+      - name: Install Poetry 1.8.5
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 - --version 1.8.5
       #----------------------------------------------
       #       load cached venv if cache exists      
       #----------------------------------------------
